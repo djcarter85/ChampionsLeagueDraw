@@ -25,7 +25,7 @@ namespace ChampionsLeagueDraw
 
         public IReadOnlyList<Match> Matches { get; }
 
-        public bool ContainsAllEnglishMatch => this.Matches.Any(m => m.IsAllEnglish);
+        public int NumberOfAllEnglishMatches => this.Matches.Count(m => m.IsAllEnglish);
 
         public static FixtureList CreateRandom()
         {

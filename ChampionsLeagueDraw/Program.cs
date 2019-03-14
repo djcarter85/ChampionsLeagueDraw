@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -8,10 +9,10 @@ namespace ChampionsLeagueDraw
     {
         public static void Main(string[] args)
         {
-            CalculateAndDisplayProbabilityOfAllEnglishMatch();
+            CalculateAndDisplayProbabilities();
         }
 
-        private static void CalculateAndDisplayProbabilityOfAllEnglishMatch()
+        private static void CalculateAndDisplayProbabilities()
         {
             var totalNumberOfFixtureLists = 100000000;
 
@@ -19,36 +20,37 @@ namespace ChampionsLeagueDraw
 
             var stopwatch = Stopwatch.StartNew();
 
-            var numberOfFixtureListsWithAnAllEnglishMatch = SimulateFixtureLists(totalNumberOfFixtureLists);
+            var results = SimulateFixtureLists(totalNumberOfFixtureLists);
 
             stopwatch.Stop();
 
-            Console.WriteLine($"Number with an all-English match: {numberOfFixtureListsWithAnAllEnglishMatch:N0}");
+            foreach (var result in results)
+            {
+                var numberOfAllEnglishMatches = result.Key;
+                var numberOfOccurrences = result.Value;
+                var percentageProbability = (decimal)numberOfOccurrences / totalNumberOfFixtureLists * 100;
+                var plural = numberOfAllEnglishMatches != 1 ? "es" : "";
 
-            var probabilityOfAllEnglishMatch = (decimal)numberOfFixtureListsWithAnAllEnglishMatch / totalNumberOfFixtureLists;
-
-            Console.WriteLine($"Probability: {probabilityOfAllEnglishMatch * 100:N4}%");
+                Console.WriteLine($"Fixture lists with {numberOfAllEnglishMatches} all-English match{plural}: {numberOfOccurrences:N0} ({percentageProbability:N2}%)");
+            }
 
             Console.WriteLine($"Time taken: {stopwatch.Elapsed.TotalSeconds:N2}s");
 
             Console.ReadLine();
         }
 
-        private static int SimulateFixtureLists(int totalNumberOfFixtureLists)
+        private static Dictionary<int, int> SimulateFixtureLists(int totalNumberOfFixtureLists)
         {
-            var numberOfFixtureListsWithAnAllEnglishMatch = 0;
+            var results = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 } };
 
             foreach (var index in Enumerable.Range(0, totalNumberOfFixtureLists))
             {
                 var fixtureList = FixtureList.CreateRandom();
 
-                if (fixtureList.ContainsAllEnglishMatch)
-                {
-                    numberOfFixtureListsWithAnAllEnglishMatch++;
-                }
+                results[fixtureList.NumberOfAllEnglishMatches]++;
             }
 
-            return numberOfFixtureListsWithAnAllEnglishMatch;
+            return results;
         }
 
         private static void GenerateAndDisplayFixtureLists()
