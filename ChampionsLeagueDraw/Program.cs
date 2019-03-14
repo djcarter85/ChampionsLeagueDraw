@@ -13,7 +13,7 @@ namespace ChampionsLeagueDraw
 
         private static void CalculateAndDisplayProbabilityOfAllEnglishMatch()
         {
-            var totalNumberOfFixtureLists = 1000000;
+            var totalNumberOfFixtureLists = 100000000;
 
             Console.WriteLine($"Simulating {totalNumberOfFixtureLists:N0} fixture lists ...");
 
