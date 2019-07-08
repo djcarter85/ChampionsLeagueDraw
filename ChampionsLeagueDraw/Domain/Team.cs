@@ -1,11 +1,11 @@
-﻿namespace ChampionsLeagueDraw
+﻿namespace ChampionsLeagueDraw.Domain
 {
     public class Team
     {
         public Team(string name, bool isEnglish)
         {
-            Name = name;
-            IsEnglish = isEnglish;
+            this.Name = name;
+            this.IsEnglish = isEnglish;
         }
 
         public string Name { get; }

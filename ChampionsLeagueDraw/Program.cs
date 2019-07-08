@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-
-namespace ChampionsLeagueDraw
+﻿namespace ChampionsLeagueDraw
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using ChampionsLeagueDraw.Distributions;
+    using ChampionsLeagueDraw.Domain;
+
     public static class Program
     {
+        private static readonly IDistribution<FixtureList> Distribution = new FixtureListDistribution();
+
         public static void Main(string[] args)
         {
             CalculateAndDisplayProbabilities();
@@ -43,10 +46,8 @@ namespace ChampionsLeagueDraw
         {
             var results = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 } };
 
-            foreach (var index in Enumerable.Range(0, totalNumberOfFixtureLists))
+            foreach (var fixtureList in Distribution.TakeSamples(totalNumberOfFixtureLists))
             {
-                var fixtureList = FixtureList.CreateRandom();
-
                 results[fixtureList.NumberOfAllEnglishMatches]++;
             }
 
@@ -63,7 +64,7 @@ namespace ChampionsLeagueDraw
 
         private static void CreateFixtureListAndDisplay()
         {
-            var fixtureList = FixtureList.CreateRandom();
+            var fixtureList = Distribution.Sample();
 
             foreach (var match in fixtureList.Matches)
             {

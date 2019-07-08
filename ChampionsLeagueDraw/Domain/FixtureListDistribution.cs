@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MoreLinq;
-
-namespace ChampionsLeagueDraw
+﻿namespace ChampionsLeagueDraw.Domain
 {
-    public class FixtureList
+    using System.Linq;
+    using ChampionsLeagueDraw.Distributions;
+    using MoreLinq.Extensions;
+
+    public class FixtureListDistribution : IDistribution<FixtureList>
     {
-        private static readonly IReadOnlyList<Team> Teams = new[]
+        private static readonly Team[] Teams = new[]
         {
             new Team("Tottenham Hotspur", true),
             new Team("Ajax", false),
@@ -18,19 +18,12 @@ namespace ChampionsLeagueDraw
             new Team("Liverpool", true),
         };
 
-        private FixtureList(IReadOnlyList<Match> matches)
+        public FixtureList Sample()
         {
-            Matches = matches;
-        }
+            var shuffledTeamsDistribution = Shuffle.Distribution(Teams);
 
-        public IReadOnlyList<Match> Matches { get; }
-
-        public int NumberOfAllEnglishMatches => this.Matches.Count(m => m.IsAllEnglish);
-
-        public static FixtureList CreateRandom()
-        {
-            var matches = Teams
-                .Shuffle()
+            var matches = shuffledTeamsDistribution
+                .Sample()
                 .Batch(2)
                 .Select(batch => new Match(batch.ElementAt(0), batch.ElementAt(1)))
                 .ToArray();
