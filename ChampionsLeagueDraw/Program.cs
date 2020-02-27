@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-
-namespace ChampionsLeagueDraw
+﻿namespace ChampionsLeagueDraw
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+
     public static class Program
     {
         public static void Main(string[] args)

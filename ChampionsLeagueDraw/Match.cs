@@ -4,8 +4,8 @@
     {
         public Match(Team home, Team away)
         {
-            Home = home;
-            Away = away;
+            this.Home = home;
+            this.Away = away;
         }
 
         public Team Home { get; }

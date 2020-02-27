@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MoreLinq;
-
-namespace ChampionsLeagueDraw
+﻿namespace ChampionsLeagueDraw
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using MoreLinq;
+
     public class FixtureList
     {
         private static readonly IReadOnlyList<Team> Teams = new[]
@@ -20,7 +20,7 @@ namespace ChampionsLeagueDraw
 
         private FixtureList(IReadOnlyList<Match> matches)
         {
-            Matches = matches;
+            this.Matches = matches;
         }
 
         public IReadOnlyList<Match> Matches { get; }
