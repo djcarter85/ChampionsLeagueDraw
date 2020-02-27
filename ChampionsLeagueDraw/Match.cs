@@ -12,6 +12,6 @@
 
         public Team Away { get; }
 
-        public bool IsAllEnglish => this.Home.IsEnglish && this.Away.IsEnglish;
+        public bool IsAllBritish => this.Home.IsBritish && this.Away.IsBritish;
     }
 }

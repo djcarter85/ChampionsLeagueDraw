@@ -26,12 +26,12 @@
 
             foreach (var result in results)
             {
-                var numberOfAllEnglishMatches = result.Key;
+                var numberOfAllBritishMatches = result.Key;
                 var numberOfOccurrences = result.Value;
                 var percentageProbability = (decimal)numberOfOccurrences / totalNumberOfFixtureLists * 100;
-                var plural = numberOfAllEnglishMatches != 1 ? "es" : "";
+                var plural = numberOfAllBritishMatches != 1 ? "es" : "";
 
-                Console.WriteLine($"Fixture lists with {numberOfAllEnglishMatches} all-English match{plural}: {numberOfOccurrences:N0} ({percentageProbability:N2}%)");
+                Console.WriteLine($"Fixture lists with {numberOfAllBritishMatches} all-British match{plural}: {numberOfOccurrences:N0} ({percentageProbability:N2}%)");
             }
 
             Console.WriteLine($"Time taken: {stopwatch.Elapsed.TotalSeconds:N2}s");
@@ -47,7 +47,7 @@
             {
                 var fixtureList = FixtureList.CreateRandom();
 
-                results[fixtureList.NumberOfAllEnglishMatches]++;
+                results[fixtureList.NumberOfAllBritishMatches]++;
             }
 
             return results;
@@ -67,7 +67,7 @@
 
             foreach (var match in fixtureList.Matches)
             {
-                var prefix = match.IsAllEnglish ? "*" : " ";
+                var prefix = match.IsAllBritish ? "*" : " ";
                 Console.WriteLine($"{prefix} {match.Home.Name} v {match.Away.Name}");
             }
         }

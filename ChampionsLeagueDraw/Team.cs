@@ -2,14 +2,14 @@
 {
     public class Team
     {
-        public Team(string name, bool isEnglish)
+        public Team(string name, bool isBritish)
         {
             this.Name = name;
-            this.IsEnglish = isEnglish;
+            this.IsBritish = isBritish;
         }
 
         public string Name { get; }
 
-        public bool IsEnglish { get; }
+        public bool IsBritish { get; }
     }
 }
